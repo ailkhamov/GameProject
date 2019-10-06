@@ -33,14 +33,20 @@ class GameReguest():
         take_website = retrieve_data['website']
         return str(take_website)
 
-    def write_to_file(file,postcode):
+    def take_wholeGame(game):
+        response_game = requests.get('https://api.rawg.io/api/games/' + game)
+        retrieve_data = response_game.json()
+        take_whole_game = retrieve_data
+        return str(take_whole_game)
+
+    def write_to_file(file,game):
         try:
             with open(file, 'a') as opened_file:
-                opened_file.write(postcode + '\n')
+                opened_file.write(game + '\n')
         except FileNotFoundError:
             print("File not found")
 
-        return print(opened_file)
+        return  print(opened_file)
 
     game_name = str(take_game("grand-theft-auto-v"))
     print(game_name)
