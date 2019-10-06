@@ -2,13 +2,41 @@ import requests
 
 
 
-def take_postcode(postcode):
-    response_post_code = requests.get('http://api.postcodes.io/postcodes/' + postcode)
-    print(type(response_post_code))
-    retrieve_data = response_post_code.json()
-    print(type(retrieve_data))
-    my_postcode = retrieve_data ['result']['postcode']
-    return str(my_postcode)
+def take_game(game):
+    response_game = requests.get('https://api.rawg.io/api/games/' + game)
+    print(type(response_game))
+    retrieve_data = response_game.json()
+
+    # print(type(retrieve_data))
+    game_name = retrieve_data['name']
+    # game_rating = retrieve_data['rating']
+    # game_website = retrieve_data['website']
+    # game_description = retrieve_data['description_raw']
+    return str(game_name)
+
+def take_rating(game):
+    response_game = requests.get('https://api.rawg.io/api/games/' + game)
+    retrieve_data = response_game.json()
+    game_rating = retrieve_data['rating']
+    return str(game_rating)
+
+def take_description(game):
+    response_game = requests.get('https://api.rawg.io/api/games/' + game)
+    retrieve_data = response_game.json()
+    game_description = retrieve_data['description_raw']
+    return str(game_description)
+
+def take_website(game):
+    response_game = requests.get('https://api.rawg.io/api/games/' + game)
+    retrieve_data = response_game.json()
+    take_website = retrieve_data['website']
+    return str(take_website)
+
+
+
+
+
+
 
 def write_to_file(file,postcode):
     try:
@@ -19,8 +47,8 @@ def write_to_file(file,postcode):
 
     return print(opened_file)
 
-postcode = str(take_postcode("HA55NZ"))
+game_name = str(take_game("grand-theft-auto-v"))
+print(game_name)
 
-
-write_to_file('postcode.txt',postcode)
+write_to_file('postcode.txt',game_name)
 
